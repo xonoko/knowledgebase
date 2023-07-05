@@ -5,6 +5,8 @@ import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import { version as pkgVersion } from './package.json'
 
+process.env.VITE_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhlanVzb3N2ZWRnenlmaXF0aWxsIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODg0MDY4NDAsImV4cCI6MjAwMzk4Mjg0MH0.GFYWzFyA4HfbihCGf9SqtmXh8tQCLlH4rb0XISeek3c'
+process.env.VITE_SUPABASE_URL = 'https://hejusosvedgzyfiqtill.supabase.co'
 process.env.VITE_APP_VERSION = pkgVersion
 if (process.env.NODE_ENV === 'production') {
   process.env.VITE_APP_BUILD_EPOCH = new Date().getTime().toString()

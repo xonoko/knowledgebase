@@ -10,6 +10,8 @@ declare module '*.vue' {
 interface ImportMetaEnv extends Readonly<Record<string, string>> {
   // Only string type here to avoid hard to debug cast problems in your components!
   readonly VITE_APP_VERSION: string
+  readonly VITE_SUPABASE_URL: string
+  readonly VITE_SUPABASE_ANON_KEY: string
   readonly VITE_APP_BUILD_EPOCH?: string
 }
 interface ImportMeta {

@@ -4,16 +4,6 @@ const route = useRoute()
 
 useHead({
   title: route.meta.title,
-  meta: [
-    {
-      property: 'og:title',
-      content: route.meta.title,
-    },
-    {
-      name: 'twitter:title',
-      content: route.meta.title,
-    },
-  ],
 })
 
 const VERSION = import.meta.env.VITE_APP_VERSION
