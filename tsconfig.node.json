@@ -3,7 +3,9 @@
     "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    //ModuleResolution was "bundler" but it was causing issues with the import of the .ts files
+    //Changed for webstorm to work
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "types": ["node", "jsdom"]
