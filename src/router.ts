@@ -10,6 +10,19 @@ const routes = [
       title: 'Vite + Vue + TypeScript + Tailwind Starter Template',
     },
   },
+  {
+    path: '/kb',
+    component: () => import('@/pages/KnowledgeBaseIndex.vue'),
+    children: [
+      {
+        path: '/section/:sectionId',
+        component: () => import('@/component/SimpleSection.vue'),
+        children: [
+
+      }
+      }
+    ],
+  }
 ]
 
 const router = createRouter({
