@@ -26,11 +26,16 @@ const navigation = [
     {name: 'Reports', href: '#', icon: ChartPieIcon, current: false},
 ]
 
-const sidebarOpen = ref(false)
+defineProps({
+    sidebarOpen: { type: Boolean, required: true },
+})
+defineEmits<{
+    close: []
+}>()
 </script>
 <template>
     <TransitionRoot as="template" :show="sidebarOpen">
-        <Dialog as="div" class="relative z-50 lg:hidden" @close="sidebarOpen = false">
+        <Dialog as="div" class="relative z-50 lg:hidden" @close="$emit('close')">
             <TransitionChild as="template" enter="transition-opacity ease-linear duration-300"
                              enter-from="opacity-0" enter-to="opacity-100"
                              leave="transition-opacity ease-linear duration-300" leave-from="opacity-100"
@@ -48,7 +53,7 @@ const sidebarOpen = ref(false)
                                          enter-to="opacity-100" leave="ease-in-out duration-300"
                                          leave-from="opacity-100" leave-to="opacity-0">
                             <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
-                                <button type="button" class="-m-2.5 p-2.5" @click="sidebarOpen = false">
+                                <button type="button" class="-m-2.5 p-2.5" @click="$emit('close')">
                                     <span class="sr-only">Close sidebar</span>
                                     <XMarkIcon class="h-6 w-6 text-white" aria-hidden="true"/>
                                 </button>

@@ -23,7 +23,7 @@ const sidebarOpen = ref(false)
     <div>
 
         <!-- Mobile menu -->
-        <PopupSidebar/>
+        <PopupSidebar @close="sidebarOpen = false" :sidebar-open="sidebarOpen"/>
 
         <!-- Static sidebar for desktop -->
         <div class="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-64 lg:overflow-y-auto lg:bg-gray-900 lg:pb-4">
