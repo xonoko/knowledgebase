@@ -1,34 +1,17 @@
 <script setup lang="ts">
-import {
-    Dialog,
-    DialogPanel,
-    TransitionChild,
-    TransitionRoot,
-} from '@headlessui/vue'
-import {
-    CalendarIcon,
-    ChartPieIcon,
-    DocumentDuplicateIcon,
-    FolderIcon,
-    HomeIcon,
-    UsersIcon,
-    XMarkIcon,
-} from '@heroicons/vue/24/outline'
+import TopNav from "@/components/nav/TopNav.vue";
+import {FunctionalComponent, HTMLAttributes, VNodeProps} from "vue";
 
-const navigation = [
+defineProps<{
+    sidebarOpen: boolean
+    navigation: {
+        name: string
+        href: string
+        icon: FunctionalComponent<HTMLAttributes & VNodeProps, {}, any>
+        current: boolean
+    }[]
+}>()
 
-
-    {name: 'Dashboard', href: '#', icon: HomeIcon, current: true},
-    {name: 'Team', href: '#', icon: UsersIcon, current: false},
-    {name: 'Projects', href: '#', icon: FolderIcon, current: false},
-    {name: 'Calendar', href: '#', icon: CalendarIcon, current: false},
-    {name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false},
-    {name: 'Reports', href: '#', icon: ChartPieIcon, current: false},
-]
-
-defineProps({
-    sidebarOpen: { type: Boolean, required: true },
-})
 defineEmits<{
     close: []
 }>()
@@ -55,7 +38,7 @@ defineEmits<{
                             <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
                                 <button type="button" class="-m-2.5 p-2.5" @click="$emit('close')">
                                     <span class="sr-only">Close sidebar</span>
-                                    <XMarkIcon class="h-6 w-6 text-white" aria-hidden="true"/>
+                                    <i-heroicons-outline-x-mark class="h-6 w-6 text-white" aria-hidden="true"/>
                                 </button>
                             </div>
                         </TransitionChild>
@@ -69,9 +52,8 @@ defineEmits<{
                             <nav class="flex flex-1 flex-col">
                                 <ul role="list" class="-mx-2 flex-1 space-y-1">
                                     <li v-for="item in navigation" :key="item.name">
-                                        <a :href="item.href"
-                                           :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                                            <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true"/>
+                                        <a :href="item.href" :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
+                                            <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true" />
                                             {{ item.name }}
                                         </a>
                                     </li>

@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import {
-    CalendarIcon,
-    ChartPieIcon,
-    DocumentDuplicateIcon,
-    FolderIcon,
-    HomeIcon,
-    UsersIcon,
-} from '@heroicons/vue/24/outline'
-const navigation = [
-    {name: 'Dashboard', href: '#', icon: HomeIcon, current: true},
-    {name: 'Team', href: '#', icon: UsersIcon, current: false},
-    {name: 'Projects', href: '#', icon: FolderIcon, current: false},
-    {name: 'Calendar', href: '#', icon: CalendarIcon, current: false},
-    {name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false},
-    {name: 'Reports', href: '#', icon: ChartPieIcon, current: false},
-]
+
+import {FunctionalComponent, HTMLAttributes, VNodeProps} from "vue";
+
+defineProps<{
+    sidebarOpen: boolean
+    navigation: {
+        name: string
+        href: string
+        icon: FunctionalComponent<HTMLAttributes & VNodeProps, {}, any>
+        current: boolean
+    }[]
+}>()
 
 </script>
 <template>
@@ -24,7 +20,7 @@ const navigation = [
                 <a :href="item.href"
                    :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-semibold']">
                     <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true"/>
-                    <span class="sr-only">{{ item.name }}</span>
+                    <span>{{ item.name }}</span>
                 </a>
             </li>
         </ul>

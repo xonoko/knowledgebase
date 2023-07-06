@@ -7,6 +7,11 @@ import path from 'path'
 
 import {defineConfig} from 'vite'
 import {version as pkgVersion} from './package.json'
+import {HeadlessUiResolver} from 'unplugin-vue-components/resolvers'
+// @ts-ignore
+import IconsResolver from 'unplugin-icons/resolver'
+// @ts-ignore
+import Icons from 'unplugin-icons/vite'
 
 process.env.VITE_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhlanVzb3N2ZWRnenlmaXF0aWxsIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODg0MDY4NDAsImV4cCI6MjAwMzk4Mjg0MH0.GFYWzFyA4HfbihCGf9SqtmXh8tQCLlH4rb0XISeek3c'
 process.env.VITE_SUPABASE_URL = 'https://hejusosvedgzyfiqtill.supabase.co'
@@ -42,7 +47,14 @@ export default defineConfig({
         }),
         Components({
             dts: 'src/components.d.ts',
+            resolvers: [
+                HeadlessUiResolver(),
+                IconsResolver(),
+            ]
         }),
+        Icons(
+            {autoInstall: true}
+        ),
     ],
     resolve: {
         alias: {
