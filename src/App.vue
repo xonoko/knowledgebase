@@ -18,6 +18,5 @@ onMounted(() => {
 
 </script>
 <template>
-    <router-view v-if="userStore.session"></router-view>
-    <AuthForm v-else></AuthForm>
+    <router-view></router-view>
 </template>

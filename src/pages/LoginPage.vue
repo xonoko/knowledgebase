@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import {ref} from 'vue'
 import supabase from '@/supabase/supabase'
 
 const loading = ref(false)

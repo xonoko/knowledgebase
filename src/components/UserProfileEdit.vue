@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import supabase from '@/supabase/supabase'
-import {onMounted, ref, toRefs} from 'vue'
 import {useUserStore} from "@/stores/User";
 
 const props = defineProps(['session'])

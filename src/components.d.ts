@@ -9,8 +9,10 @@ declare module 'vue' {
   export interface GlobalComponents {
     AuthForm: typeof import('./pages/LoginPage.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
+    PopupSidebar: typeof import('./components/kbLayout/PopupSidebar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    StaticSideBar: typeof import('./components/kbLayout/StaticSideBar.vue')['default']
     UserProfileEdit: typeof import('./components/UserProfileEdit.vue')['default']
   }
 }
