@@ -1,5 +1,5 @@
-<script setup>
-import { ref } from 'vue'
+<script lang="ts" setup>
+import {ref} from 'vue'
 import supabase from '@/supabase/supabase'
 
 const loading = ref(false)
@@ -8,7 +8,7 @@ const email = ref('')
 const handleLogin = async () => {
     try {
         loading.value = true
-        const { error } = await supabase.auth.signInWithOtp({
+        const {error} = await supabase.auth.signInWithOtp({
             email: email.value,
         })
         if (error) throw error
@@ -29,14 +29,14 @@ const handleLogin = async () => {
             <h1 class="header">Supabase + Vue 3</h1>
             <p class="description">Sign in via magic link with your email below</p>
             <div>
-                <input class="inputField" required type="email" placeholder="Your email" v-model="email" />
+                <input v-model="email" class="inputField" placeholder="Your email" required type="email"/>
             </div>
             <div>
                 <input
-                        type="submit"
-                        class="button block"
-                        :value="loading ? 'Loading' : 'Send magic link'"
                         :disabled="loading"
+                        :value="loading ? 'Loading' : 'Send magic link'"
+                        class="button block"
+                        type="submit"
                 />
             </div>
         </div>
