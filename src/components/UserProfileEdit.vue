@@ -1,38 +1,42 @@
 <script setup lang="ts">
-import { supabase } from '../supabase'
-import { onMounted, ref, toRefs } from 'vue'
+import supabase from '@/supabase/supabase'
+import {onMounted, ref, toRefs} from 'vue'
+import {useUserStore} from "@/stores/User";
 
 const props = defineProps(['session'])
-const { session } = toRefs(props)
+const {session} = toRefs(props)
 
 const loading = ref(true)
-const username = ref('')
-const website = ref('')
-const avatar_url = ref('')
+const username = ref<string | null>('')
+const website = ref<string | null>('')
+const avatar_url = ref<string | null>('')
 
 onMounted(() => {
     getProfile()
 })
 
+const userStore = useUserStore()
+
 async function getProfile() {
     try {
         loading.value = true
-        const { user } = session.value
 
-        let { data, error, status } = await supabase
-            .from('profiles')
-            .select(`username, website, avatar_url`)
-            .eq('id', user.id)
-            .single()
+        if (userStore.session) {
+            let {data, error, status} = await supabase
+                .from('profiles')
+                .select(`username, website, avatar_url`)
+                .eq('id', userStore.session.user.id)
+                .single()
 
-        if (error && status !== 406) throw error
+            if (error && status !== 406) throw error
 
-        if (data) {
-            username.value = data.username
-            website.value = data.website
-            avatar_url.value = data.avatar_url
+            if (data) {
+                username.value = data.username
+                website.value = data.website
+                avatar_url.value = data.avatar_url
+            }
         }
-    } catch (error) {
+    } catch (error: any) {
         alert(error.message)
     } finally {
         loading.value = false
@@ -42,20 +46,21 @@ async function getProfile() {
 async function updateProfile() {
     try {
         loading.value = true
-        const { user } = session.value
+        if (userStore.session) {
 
-        const updates = {
-            id: user.id,
-            username: username.value,
-            website: website.value,
-            avatar_url: avatar_url.value,
-            updated_at: new Date(),
+            const updates = {
+                id: userStore.session.user.id,
+                username: username.value,
+                website: website.value,
+                avatar_url: avatar_url.value,
+                updated_at: new Date().toString(),
+            }
+
+            let {error} = await supabase.from('profiles').upsert(updates)
+
+            if (error) throw error
         }
-
-        let { error } = await supabase.from('profiles').upsert(updates)
-
-        if (error) throw error
-    } catch (error) {
+    } catch (error: any) {
         alert(error.message)
     } finally {
         loading.value = false
@@ -65,9 +70,9 @@ async function updateProfile() {
 async function signOut() {
     try {
         loading.value = true
-        let { error } = await supabase.auth.signOut()
+        let {error} = await supabase.auth.signOut()
         if (error) throw error
-    } catch (error) {
+    } catch (error: any) {
         alert(error.message)
     } finally {
         loading.value = false
@@ -79,15 +84,15 @@ async function signOut() {
     <form class="form-widget" @submit.prevent="updateProfile">
         <div>
             <label for="email">Email</label>
-            <input id="email" type="text" :value="session.user.email" disabled />
+            <input id="email" type="text" :value="session.user.email" disabled/>
         </div>
         <div>
             <label for="username">Name</label>
-            <input id="username" type="text" v-model="username" />
+            <input id="username" type="text" v-model="username"/>
         </div>
         <div>
             <label for="website">Website</label>
-            <input id="website" type="url" v-model="website" />
+            <input id="website" type="url" v-model="website"/>
         </div>
 
         <div>
